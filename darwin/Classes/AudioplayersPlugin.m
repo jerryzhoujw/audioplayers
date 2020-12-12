@@ -513,34 +513,34 @@ const NSString *_defaultPlayingRoute = @"speakers";
     
   #if TARGET_OS_IPHONE
       // code moved from play() to setUrl() to fix the bug of audio not playing in ios background
-      NSError *error = nil;
-      BOOL success = false;
-    
-      AVAudioSessionCategory category;
-      if (recordingActive) {
-        category = AVAudioSessionCategoryPlayAndRecord;
-      } else {
-        category = respectSilence ? AVAudioSessionCategoryAmbient : AVAudioSessionCategoryPlayback;
-      }
-      // When using AVAudioSessionCategoryPlayback, by default, this implies that your app’s audio is nonmixable—activating your session
-      // will interrupt any other audio sessions which are also nonmixable. AVAudioSessionCategoryPlayback should not be used with
-      // AVAudioSessionCategoryOptionMixWithOthers option. If so, it prevents infoCenter from working correctly.
-      if (respectSilence) {
-        success = [[AVAudioSession sharedInstance] setCategory:category withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&error];
-      } else {
-        success = [[AVAudioSession sharedInstance] setCategory:category error:&error];
-        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-      }
-      
-      if ([playerInfo[@"playingRoute"] isEqualToString:@"earpiece"]) {
-        // Use earpiece speaker to play audio.
-        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-      }
-
-      if (!success) {
-        NSLog(@"Error setting speaker: %@", error);
-      }
-      [[AVAudioSession sharedInstance] setActive:YES error:&error];
+//      NSError *error = nil;
+//      BOOL success = false;
+//
+//      AVAudioSessionCategory category;
+//      if (recordingActive) {
+//        category = AVAudioSessionCategoryPlayAndRecord;
+//      } else {
+//        category = respectSilence ? AVAudioSessionCategoryAmbient : AVAudioSessionCategoryPlayback;
+//      }
+//      // When using AVAudioSessionCategoryPlayback, by default, this implies that your app’s audio is nonmixable—activating your session
+//      // will interrupt any other audio sessions which are also nonmixable. AVAudioSessionCategoryPlayback should not be used with
+//      // AVAudioSessionCategoryOptionMixWithOthers option. If so, it prevents infoCenter from working correctly.
+//      if (respectSilence) {
+//        success = [[AVAudioSession sharedInstance] setCategory:category withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&error];
+//      } else {
+//        success = [[AVAudioSession sharedInstance] setCategory:category error:&error];
+//        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+//      }
+//
+//      if ([playerInfo[@"playingRoute"] isEqualToString:@"earpiece"]) {
+//        // Use earpiece speaker to play audio.
+//        success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+//      }
+//
+//      if (!success) {
+//        NSLog(@"Error setting speaker: %@", error);
+//      }
+//      [[AVAudioSession sharedInstance] setActive:YES error:&error];
   #endif
     
   BOOL playbackFailed = ([[player currentItem] status] == AVPlayerItemStatusFailed);
@@ -609,25 +609,25 @@ const NSString *_defaultPlayingRoute = @"speakers";
       duckAudio: (bool) duckAudio
 recordingActive: (bool) recordingActive
 {
-  NSError *error = nil;
-  AVAudioSessionCategory category = respectSilence ? AVAudioSessionCategoryAmbient : AVAudioSessionCategoryPlayback;
-    
-  BOOL success = false;
-  if (duckAudio) {
-    success = [[AVAudioSession sharedInstance]
-                    setCategory: category
-            withOptions: AVAudioSessionCategoryOptionDuckOthers
-                    error:&error];
-  } else {
-    success = [[AVAudioSession sharedInstance]
-                    setCategory: category
-                    error:&error];
-  }
-
-  if (!success) {
-    NSLog(@"Error setting speaker: %@", error);
-  }
-  [[AVAudioSession sharedInstance] setActive:YES error:&error];
+//  NSError *error = nil;
+//  AVAudioSessionCategory category = respectSilence ? AVAudioSessionCategoryAmbient : AVAudioSessionCategoryPlayback;
+//
+//  BOOL success = false;
+//  if (duckAudio) {
+//    success = [[AVAudioSession sharedInstance]
+//                    setCategory: category
+//            withOptions: AVAudioSessionCategoryOptionDuckOthers
+//                    error:&error];
+//  } else {
+//    success = [[AVAudioSession sharedInstance]
+//                    setCategory: category
+//                    error:&error];
+//  }
+//
+//  if (!success) {
+//    NSLog(@"Error setting speaker: %@", error);
+//  }
+//  [[AVAudioSession sharedInstance] setActive:YES error:&error];
 
   [ self setUrl:url
          isLocal:isLocal
@@ -761,17 +761,17 @@ recordingActive: (bool) recordingActive
   NSMutableDictionary *playerInfo = players[playerId];
   [playerInfo setObject:(playingRoute) forKey:@"playingRoute"];
 
-  BOOL success = false;
-  NSError *error = nil;
-  if ([playingRoute isEqualToString:@"earpiece"]) {
-    // Use earpiece speaker to play audio.
-    success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-  } else {
-    success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
-  }
-  if (!success) {
-    NSLog(@"Error setting playing route: %@", error);
-  }
+//  BOOL success = false;
+//  NSError *error = nil;
+//  if ([playingRoute isEqualToString:@"earpiece"]) {
+//    // Use earpiece speaker to play audio.
+//    success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+//  } else {
+//    success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+//  }
+//  if (!success) {
+//    NSLog(@"Error setting playing route: %@", error);
+//  }
 } 
 
 -(void) stop: (NSString *) playerId {
@@ -834,8 +834,8 @@ recordingActive: (bool) recordingActive
   }
 
   if (!hasPlaying) {
-    NSError *error = nil;
-    [[AVAudioSession sharedInstance] setActive:NO error:&error];
+//    NSError *error = nil;
+//    [[AVAudioSession sharedInstance] setActive:NO error:&error];
   }
 
   #if TARGET_OS_IPHONE
