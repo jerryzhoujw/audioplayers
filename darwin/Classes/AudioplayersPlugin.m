@@ -512,6 +512,12 @@ const NSString *_defaultPlayingRoute = @"speakers";
   NSLog(@"setUrl %@", url);
     
   #if TARGET_OS_IPHONE
+    // FIX(jerry): fix the sound become lower after play audio.
+    NSError *error = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionCategoryOptionDefaultToSpeaker
+                                           error:&error];
+
+
       // code moved from play() to setUrl() to fix the bug of audio not playing in ios background
 //      NSError *error = nil;
 //      BOOL success = false;
